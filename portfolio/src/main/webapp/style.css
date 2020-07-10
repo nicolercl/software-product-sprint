@@ -1,9 +1,40 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
-}
+    body {
+        background-color: rgba(0, 0, 0, 0.03)
+    }
+    #content {
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+        font-family: 'Noto Sans TC';
+    }
 
-#greeting-container {
-  margin-top: 20px;
-}
+    .container {
+        padding: 20px;
+        background-color: white;
+    }
+
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .project-card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        background-color: white;
+        flex: 0 1 30%;
+    }
+    .project-card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    .project-card-title {
+        background-color: rgb(218, 238, 238);
+        height: 80px;
+        padding: 12px;
+    }
+    .project-card-text {
+        padding: 12px;
+        color:rgba(74, 74, 79, 1);
+    }
