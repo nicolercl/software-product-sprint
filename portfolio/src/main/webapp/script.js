@@ -27,8 +27,17 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-async function getGreeting() {
+async function getComments() {
+  const commentElement = document.getElementById('comments-container');
+  if (commentElement.childNodes.length != 0) return;
   const response = await fetch('/data');
-  const quote = await response.text();
-  document.getElementById('greeting-container').innerHTML = quote;
+  const comments = await response.json();
+  for (let i = 0; i < comments.length; i++){
+    commentElement.appendChild(createListElement(comments[i]));
+  }
+}
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
