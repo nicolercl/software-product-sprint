@@ -22,12 +22,15 @@ public class LoginServlet extends HttpServlet {
       String urlToRedirectToAfterUserLogsOut = "/";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
-      response.getWriter().println("LoggedIn");
+      response.getWriter().println("Hello " + userEmail + ".");
+      response.getWriter().println("Leave a comment below or log out <a href=\"" + logoutUrl + 
+      "\">here.</a>");
+
     } else {
       String urlToRedirectToAfterUserLogsIn = "/";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
       response.getWriter().println("Hello stranger.");
-      response.getWriter().println("Login <a href=\"" + loginUrl + "\">here</a>.");
+      response.getWriter().println("Login <a href=\"" + loginUrl + "\">here</a> to leave a comment.");
     }
   }
 }

@@ -57,12 +57,6 @@ async function checkLoginStatus() {
   const loginMessageElement = document.getElementById("login-message");
   const response = await fetch('/login');
   const text = await response.text();
-  if (text.trim() == "LoggedIn") {
-    commentForm.style.display = "block";
-    loginMessageElement.style.display = "none";
-  } else {
-    commentForm.style.display = "none";
-    loginMessageElement.style.display = "block";
-    loginMessageElement.innerHTML = text;
-  }
+  commentForm.style.display = text.includes("Login") ? "none":"block";
+  loginMessageElement.innerHTML = text;
 }

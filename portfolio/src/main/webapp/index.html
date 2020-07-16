@@ -54,9 +54,9 @@
       </section>
       <section class="container">
           <h3>Comments</h3>
+          <div class="project-card-text" id="login-message"></div>
           <div class="project-card-text" id="comment-form"
           style="display:none">
-            <p>Leave a comment below!</p>
             <form action='/data' method='POST'>
                 <label for="user">Name</label><br>
                 <input type="text" id="user" name="user"><br><br>
@@ -65,7 +65,6 @@
                 <input type="submit" value="Submit">
             </form>
           </div>
-          <div class="project-card-text" id="login-message" style="display:none"></div>
           <div id="comments-container" class="v_cards"></div>
       </section>
       </section>
