@@ -29,7 +29,6 @@ function addRandomGreeting() {
 
 async function getComments() {
   const commentElement = document.getElementById('comments-container');
-  if (commentElement.childNodes.length != 0) return;
   const response = await fetch('/data');
   const comments = await response.json();
   for (let i = 0; i < comments.length; i++){
@@ -38,13 +37,14 @@ async function getComments() {
 }
 function createCommentElement(comment) {
   const divElement = document.createElement('div');
-  for (el in comment) {
-    if (el != "id") divElement.appendChild(createListElement(comment[el]));
-  }
+  divElement.setAttribute("class", "project-card-text");
+  divElement.appendChild(createCustomElement(comment['user'], 'h5'));
+  divElement.appendChild(createCustomElement(comment['content'], 'p'));
+  divElement.appendChild(createCustomElement('Timestamp: ' + comment['timestamp'], 'h5'));
   return divElement;
 }
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createCustomElement(text, type) {
+  const element = document.createElement(type);
+  element.innerText = text;
+  return element;
 }

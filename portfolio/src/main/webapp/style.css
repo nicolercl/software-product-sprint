@@ -14,10 +14,14 @@
         background-color: white;
     }
 
-    .cards {
+    .h_cards {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+    }
+
+    .v_cards {
+        align-content: space-between;
     }
 
     .project-card {
