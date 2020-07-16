@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
@@ -43,12 +45,14 @@ public class DataServlet extends HttpServlet {
     private final String mUser;
     private final long mTimestamp;
     private final String mContent;
+    private final String mEmail;
 
-    public Comment(long id, String user, long timestamp, String content) {
+    public Comment(long id, String user, long timestamp, String content, String email) {
       this.mId = id;
       this.mUser = user;
       this.mTimestamp = timestamp;
       this.mContent = content;
+      this.mEmail = email;
     }
   }
 
@@ -69,8 +73,9 @@ public class DataServlet extends HttpServlet {
       String user = (String) entity.getProperty("user");
       long timestamp = (long) entity.getProperty("timestamp");
       String content = (String) entity.getProperty("content");
+      String email = (String) entity.getProperty("email");
 
-      Comment comment = new Comment(id, user, timestamp, content);
+      Comment comment = new Comment(id, user, timestamp, content, email);
       mTmpComments.add(comment);
     }
     String ret = convertToJsonUsingGson(mTmpComments);
@@ -79,8 +84,10 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    final UserService userService = UserServiceFactory.getUserService();
     String comment = request.getParameter("comment");
     String user = request.getParameter("user");
+    String email = userService.getCurrentUser().getEmail();
     long timestamp = System.currentTimeMillis();
     if (comment != null && comment != "") {
       Entity commentEntity = new Entity("Comment");
@@ -88,6 +95,7 @@ public class DataServlet extends HttpServlet {
       commentEntity.setProperty("user", user);
       commentEntity.setProperty("content", comment);
       commentEntity.setProperty("timestamp", timestamp);
+      commentEntity.setProperty("email", email);
       mDatastore.put(commentEntity);
     }
     response.sendRedirect("/");
