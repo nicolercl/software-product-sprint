@@ -37,7 +37,7 @@ public class DataServlet extends HttpServlet {
   private final ArrayList<Comment> mTmpComments = new ArrayList<>();
 
   /** A comment in the portfolio page. */
-  public final class Comment {
+  private final class Comment {
 
     private final long mId;
     private final String mUser;
