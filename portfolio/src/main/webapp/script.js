@@ -33,8 +33,15 @@ async function getComments() {
   const response = await fetch('/data');
   const comments = await response.json();
   for (let i = 0; i < comments.length; i++){
-    commentElement.appendChild(createListElement(comments[i]));
+    commentElement.appendChild(createCommentElement(comments[i]));
   }
+}
+function createCommentElement(comment) {
+  const divElement = document.createElement('div');
+  for (el in comment) {
+    if (el != "id") divElement.appendChild(createListElement(comment[el]));
+  }
+  return divElement;
 }
 function createListElement(text) {
   const liElement = document.createElement('li');

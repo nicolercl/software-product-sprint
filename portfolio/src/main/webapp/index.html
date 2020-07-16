@@ -57,6 +57,8 @@
           <button onclick="getComments()">Expand Comments Section</button>
           <div id="comments-container"></div>
           <form action='/data' method='POST'>
+              <label for="user">Name</label><br>
+              <input type="text" id="user" name="user"><br><br>
               <label for="comment">Comment</label><br>
               <input type="text" id="comment" name="comment"><br><br>
               <input type="submit" value="Submit">
