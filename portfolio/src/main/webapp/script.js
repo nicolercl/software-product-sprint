@@ -26,6 +26,10 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+async function loadPage(){
+  getComments();
+  checkLoginStatus();
+}
 
 async function getComments() {
   const commentElement = document.getElementById('comments-container');
@@ -47,4 +51,18 @@ function createCustomElement(text, type) {
   const element = document.createElement(type);
   element.innerText = text;
   return element;
+}
+async function checkLoginStatus() {
+  const commentForm = document.getElementById("comment-form");
+  const loginMessageElement = document.getElementById("login-message");
+  const response = await fetch('/login');
+  const text = await response.text();
+  if (text.trim() == "LoggedIn") {
+    commentForm.style.display = "block";
+    loginMessageElement.style.display = "none";
+  } else {
+    commentForm.style.display = "none";
+    loginMessageElement.style.display = "block";
+    loginMessageElement.innerHTML = text;
+  }
 }
