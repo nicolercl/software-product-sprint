@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getComments()">
     <div id="content">
     <section class="container">
       <h1 class>Nicole Lin</h1>
@@ -21,7 +21,7 @@
     </section>
     <section class="container">
       <h3>Projects</h3>
-      <div class="cards">
+      <div class="h_cards">
         <div class="project-card" onclick="location.href='https://github.com/nicolercl/team-48-codeu'">
           <div class="project-card-title">
             <h4>SkillSync @ Google CodeU 2019</h4>
@@ -51,6 +51,20 @@
               <li>Grace Hopper's Celebration 2018</li>
               <li>Google CodeU 2019</li>
           </ul>
+      </section>
+      <section class="container">
+          <h3>Comments</h3>
+          <div class="project-card-text">
+            <p>Leave a comment below!</p>
+            <form action='/data' method='POST'>
+                <label for="user">Name</label><br>
+                <input type="text" id="user" name="user"><br><br>
+                <label for="comment">Comment</label><br>
+                <input type="text" id="comment" name="comment"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+          </div>
+          <div id="comments-container" class="v_cards"></div>
       </section>
       </section>
     </div>

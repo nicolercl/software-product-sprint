@@ -26,3 +26,25 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+async function getComments() {
+  const commentElement = document.getElementById('comments-container');
+  const response = await fetch('/data');
+  const comments = await response.json();
+  for (let i = 0; i < comments.length; i++){
+    commentElement.appendChild(createCommentElement(comments[i]));
+  }
+}
+function createCommentElement(comment) {
+  const divElement = document.createElement('div');
+  divElement.setAttribute("class", "project-card-text");
+  divElement.appendChild(createCustomElement(comment['mUser'], 'h5'));
+  divElement.appendChild(createCustomElement(comment['mContent'], 'p'));
+  divElement.appendChild(createCustomElement('Timestamp: ' + comment['mTimestamp'], 'h5'));
+  return divElement;
+}
+function createCustomElement(text, type) {
+  const element = document.createElement(type);
+  element.innerText = text;
+  return element;
+}
