@@ -38,9 +38,9 @@ async function getComments() {
 function createCommentElement(comment) {
   const divElement = document.createElement('div');
   divElement.setAttribute("class", "project-card-text");
-  divElement.appendChild(createCustomElement(comment['user'], 'h5'));
-  divElement.appendChild(createCustomElement(comment['content'], 'p'));
-  divElement.appendChild(createCustomElement('Timestamp: ' + comment['timestamp'], 'h5'));
+  divElement.appendChild(createCustomElement(comment['mUser'], 'h5'));
+  divElement.appendChild(createCustomElement(comment['mContent'], 'p'));
+  divElement.appendChild(createCustomElement('Timestamp: ' + comment['mTimestamp'], 'h5'));
   return divElement;
 }
 function createCustomElement(text, type) {
