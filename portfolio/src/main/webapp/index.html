@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body onload="loadPage()">
     <div id="content">
     <section class="container">
       <h1 class>Nicole Lin</h1>
@@ -54,8 +54,9 @@
       </section>
       <section class="container">
           <h3>Comments</h3>
-          <div class="project-card-text">
-            <p>Leave a comment below!</p>
+          <div class="project-card-text" id="login-message"></div>
+          <div class="project-card-text" id="comment-form"
+          style="display:none">
             <form action='/data' method='POST'>
                 <label for="user">Name</label><br>
                 <input type="text" id="user" name="user"><br><br>
