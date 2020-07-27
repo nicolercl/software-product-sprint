@@ -22,15 +22,13 @@ import java.lang.Math;
 
 public final class FindMeetingQuery {
 
-  private Collection<String> mAttendees;
-  private long mDuration;
   private final List<TimeRange> mTimeRanges = new ArrayList<>();
   private final Collection<TimeRange> mSlots = new ArrayList<>();
 
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     
-    mAttendees = request.getAttendees();
-    mDuration = request.getDuration();
+    final Collection<String> mAttendees = request.getAttendees();
+    final long mDuration = request.getDuration();
     mTimeRanges.clear();
     mSlots.clear();
 
@@ -46,7 +44,9 @@ public final class FindMeetingQuery {
     // Sort with ascending order
     Collections.sort(mTimeRanges, TimeRange.ORDER_BY_START);
 
-    if (TimeRange.START_OF_DAY + mDuration > TimeRange.END_OF_DAY+1) return mSlots;
+    if (TimeRange.START_OF_DAY + mDuration > TimeRange.END_OF_DAY+1) {
+      return mSlots;
+    }
 
     if (mTimeRanges.isEmpty()) {
       mSlots.add(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true));
@@ -56,15 +56,15 @@ public final class FindMeetingQuery {
         mSlots.add(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, mTimeRanges.get(0).start(), false));
       }
       // Find slots between busy events
-      final int N = mTimeRanges.size();
+      final int rangeSize = mTimeRanges.size();
       TimeRange prev;
       TimeRange next;
       int latestEndTime = mTimeRanges.get(0).end();
-      for (int i = 0, j = i+1; i < N-1; i++, j++){
+      for (int i = 0, j = i+1; i < rangeSize-1; i++, j++){
         prev = mTimeRanges.get(i);
         next = mTimeRanges.get(j);
         int overlapEndTime = prev.end();
-        while(j < N-1 && prev.overlaps(next)){
+        while(j < rangeSize-1 && prev.overlaps(next)){
           overlapEndTime = Math.max(overlapEndTime, next.end());
           j++;
           i++;
@@ -76,10 +76,10 @@ public final class FindMeetingQuery {
           mSlots.add(TimeRange.fromStartEnd(overlapEndTime, next.start(), false));
         }
       }
-      latestEndTime = Math.max(latestEndTime, mTimeRanges.get(N-1).end());
+      latestEndTime = Math.max(latestEndTime, mTimeRanges.get(rangeSize-1).end());
 
       // Find slots after last busy event
-      if (mTimeRanges.get(N-1).end() + mDuration <= TimeRange.END_OF_DAY+1){
+      if (mTimeRanges.get(rangeSize-1).end() + mDuration <= TimeRange.END_OF_DAY+1){
         mSlots.add(TimeRange.fromStartEnd(latestEndTime, TimeRange.END_OF_DAY, true));
       }
     }
